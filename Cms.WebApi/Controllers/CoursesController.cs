@@ -13,7 +13,7 @@ namespace Cms.WebApi.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<CoursesController> GetCourses()
+        public IEnumerable<Course> GetCourses()
         {
             //return "Hello, World!";
         }
