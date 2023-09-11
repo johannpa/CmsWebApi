@@ -11,5 +11,11 @@ namespace Cms.WebApi.Controllers
         {
             
         }
+
+        [HttpGet]
+        public IEnumerable<CoursesController> GetCourses()
+        {
+            //return "Hello, World!";
+        }
     }
 }
