@@ -11,7 +11,7 @@ namespace Cms.WebApi.Cms.Data.Repository.Repositories
 
         public IEnumerable<Course> GetAllCourses()
         {
-            throw new NotImplementedException();
+            return null;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Cms.WebApi.Cms.Data.Repository.Models;
+using Cms.WebApi.Cms.Data.Repository.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cms.WebApi.Controllers
@@ -7,7 +9,8 @@ namespace Cms.WebApi.Controllers
     [Route("[controller]")]
     public class CoursesController : ControllerBase
     {
-        public CoursesController()
+        private readonly ICmsRepository _cmsRepository;
+        public CoursesController(ICmsRepository cmsRepository)
         {
             
         }
@@ -15,7 +18,7 @@ namespace Cms.WebApi.Controllers
         [HttpGet]
         public IEnumerable<Course> GetCourses()
         {
-            //return "Hello, World!";
+            return _cmsRepository.GetAllCourses();
         }
     }
 }
