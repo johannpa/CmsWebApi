@@ -1,9 +1,11 @@
 using Cms.WebApi.Cms.Data.Repository.Repositories;
+using CmsWebApi.Mappers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddSingleton<ICmsRepository, InMemoryCmsRepository>();
+builder.Services.AddAutoMapper(typeof(CmsMapper));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

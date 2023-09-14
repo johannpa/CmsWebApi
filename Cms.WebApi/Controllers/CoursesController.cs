@@ -1,4 +1,5 @@
-﻿using Cms.WebApi.Cms.Data.Repository.Models;
+﻿using AutoMapper;
+using Cms.WebApi.Cms.Data.Repository.Models;
 using Cms.WebApi.Cms.Data.Repository.Repositories;
 using Cms.WebApi.DTOs;
 using Microsoft.AspNetCore.Http;
@@ -11,9 +12,12 @@ namespace CmsWebApi.Controllers
     public class CoursesController : ControllerBase
     {
         private readonly ICmsRepository _cmsRepository;
-        public CoursesController(ICmsRepository cmsRepository)
+        private readonly IMapper mapper;
+
+        public CoursesController(ICmsRepository cmsRepository, IMapper mapper)
         {
             this._cmsRepository = cmsRepository;
+            this.mapper = mapper;
         }
 
         //Approach 1
@@ -80,7 +84,8 @@ namespace CmsWebApi.Controllers
             try
             {
                 IEnumerable<Course> courses = await _cmsRepository.GetAllCoursesAsync();
-                var result = MapCourseToCourseDto(courses);
+                //var result = MapCourseToCourseDto(courses);
+                var result = mapper.Map<CourseDto[]>(courses);
                 return result.ToList(); // Convert to support ActionResult<T>
             }
             catch (System.Exception ex)
