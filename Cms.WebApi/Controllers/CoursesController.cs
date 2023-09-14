@@ -24,23 +24,37 @@ namespace CmsWebApi.Controllers
         //}
 
         // Return type - Approach 1 - primitive or complex type
+        //[HttpGet]
+        //public IEnumerable<CourseDto> GetCourses()
+        //{
+        //    try
+        //    {
+        //        IEnumerable<Course> courses = _cmsRepository.GetAllCourses();
+        //        var result = MapCourseToCourseDto(courses);
+        //        return result;
+        //    }
+        //    catch (System.Exception)
+        //    {
+
+        //        throw;
+        //    }
+        //}
+
+        // Return type - Approach 2 - IActionResult
         [HttpGet]
-        public IEnumerable<CourseDto> GetCourses()
+        public IActionResult GetCourses()
         {
             try
             {
                 IEnumerable<Course> courses = _cmsRepository.GetAllCourses();
                 var result = MapCourseToCourseDto(courses);
-                return result;
+                return Ok(result);
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
-
-                throw;
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
-
-        
 
         // Custom mapper functions
 
