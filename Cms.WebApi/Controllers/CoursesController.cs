@@ -23,6 +23,7 @@ namespace CmsWebApi.Controllers
         //    return _cmsRepository.GetAllCourses();
         //}
 
+        // Return type - Approach 1 - primitive or complex type
         [HttpGet]
         public IEnumerable<CourseDto> GetCourses()
         {
@@ -38,6 +39,8 @@ namespace CmsWebApi.Controllers
                 throw;
             }
         }
+
+        
 
         // Custom mapper functions
 
