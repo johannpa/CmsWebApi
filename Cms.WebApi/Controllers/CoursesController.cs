@@ -78,23 +78,34 @@ namespace CmsWebApi.Controllers
         //}
 
         // Return type - Approach 3 - ActionResult<T>
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<CourseDto>>> GetCoursesAsync()
-        {
-            try
-            {
-                IEnumerable<Course> courses = await _cmsRepository.GetAllCoursesAsync();
-                //var result = MapCourseToCourseDto(courses);
-                var result = mapper.Map<CourseDto[]>(courses);
-                return result.ToList(); // Convert to support ActionResult<T>
-            }
-            catch (System.Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
-        }
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<CourseDto>>> GetCoursesAsync()
+        //{
+        //    try
+        //    {
+        //        IEnumerable<Course> courses = await _cmsRepository.GetAllCoursesAsync();
+        //        //var result = MapCourseToCourseDto(courses);
+        //        var result = mapper.Map<CourseDto[]>(courses);
+        //        return result.ToList(); // Convert to support ActionResult<T>
+        //    }
+        //    catch (System.Exception ex)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        //    }
+        //}
 
         // Custom mapper functions
+
+        private CourseDto MapCourseToCourseDto(Course course)
+        {
+            return new CourseDto()
+            {
+                CourseId = course.CourseId,
+                CourseName = course.CourseName,
+                CourseDuration = course.CourseDuration,
+                CourseType = (Cms.WebApi.DTOs.COURSE_TYPE)course.CourseType
+            };
+        }
 
         private IEnumerable<CourseDto> MapCourseToCourseDto(IEnumerable<Course> courses)
         {
