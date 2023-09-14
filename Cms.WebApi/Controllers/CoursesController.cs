@@ -94,32 +94,36 @@ namespace CmsWebApi.Controllers
         //    }
         //}
 
+
+        #region Custom mapper function
         // Custom mapper functions
 
-        private CourseDto MapCourseToCourseDto(Course course)
-        {
-            return new CourseDto()
-            {
-                CourseId = course.CourseId,
-                CourseName = course.CourseName,
-                CourseDuration = course.CourseDuration,
-                CourseType = (Cms.WebApi.DTOs.COURSE_TYPE)course.CourseType
-            };
-        }
+        //private CourseDto MapCourseToCourseDto(Course course)
+        //{
+        //    return new CourseDto()
+        //    {
+        //        CourseId = course.CourseId,
+        //        CourseName = course.CourseName,
+        //        CourseDuration = course.CourseDuration,
+        //        CourseType = (Cms.WebApi.DTOs.COURSE_TYPE)course.CourseType
+        //    };
+        //}
 
-        private IEnumerable<CourseDto> MapCourseToCourseDto(IEnumerable<Course> courses)
-        {
-            IEnumerable<CourseDto> result;
+        //private IEnumerable<CourseDto> MapCourseToCourseDto(IEnumerable<Course> courses)
+        //{
+        //    IEnumerable<CourseDto> result;
 
-            result = courses.Select(c => new CourseDto()
-            {
-                CourseId = c.CourseId,
-                CourseName = c.CourseName,
-                CourseDuration = c.CourseDuration,
-                CourseType = (Cms.WebApi.DTOs.COURSE_TYPE)c.CourseType
-            });
+        //    result = courses.Select(c => new CourseDto()
+        //    {
+        //        CourseId = c.CourseId,
+        //        CourseName = c.CourseName,
+        //        CourseDuration = c.CourseDuration,
+        //        CourseType = (Cms.WebApi.DTOs.COURSE_TYPE)c.CourseType
+        //    });
 
-            return result;
-        }
+        //    return result;
+        //}
+        #endregion
+
     }
 }
