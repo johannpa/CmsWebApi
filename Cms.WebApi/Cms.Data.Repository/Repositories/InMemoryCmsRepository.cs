@@ -32,5 +32,10 @@ namespace Cms.WebApi.Cms.Data.Repository.Repositories
         {
             return courses;
         }
+
+        public async Task<IEnumerable<Course>> GetAllCoursesAsync()
+        {
+            return await Task.Run(() => courses.ToList());
+        }
     }
 }

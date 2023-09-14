@@ -2,7 +2,7 @@
 
 namespace Cms.WebApi.Cms.Data.Repository.Repositories
 {
-    public class SqlCmsRepository: ICmsRepository
+    public class SqlCmsRepository //: ICmsRepository
     {
         public SqlCmsRepository()
         {

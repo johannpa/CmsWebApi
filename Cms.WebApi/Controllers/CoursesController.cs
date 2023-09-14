@@ -58,12 +58,28 @@ namespace CmsWebApi.Controllers
 
 
         // Return type - Approach 3 - ActionResult<T>
+        //[HttpGet]
+        //public ActionResult<IEnumerable<CourseDto>> GetCourses()
+        //{
+        //    try
+        //    {
+        //        IEnumerable<Course> courses = _cmsRepository.GetAllCourses();
+        //        var result = MapCourseToCourseDto(courses);
+        //        return result.ToList(); // Convert to support ActionResult<T>
+        //    }
+        //    catch (System.Exception ex)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        //    }
+        //}
+
+        // Return type - Approach 3 - ActionResult<T>
         [HttpGet]
-        public ActionResult<IEnumerable<CourseDto>> GetCourses()
+        public async Task<ActionResult<IEnumerable<CourseDto>>> GetCoursesAsync()
         {
             try
             {
-                IEnumerable<Course> courses = _cmsRepository.GetAllCourses();
+                IEnumerable<Course> courses = await _cmsRepository.GetAllCoursesAsync();
                 var result = MapCourseToCourseDto(courses);
                 return result.ToList(); // Convert to support ActionResult<T>
             }
@@ -72,6 +88,7 @@ namespace CmsWebApi.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
         // Custom mapper functions
 
         private IEnumerable<CourseDto> MapCourseToCourseDto(IEnumerable<Course> courses)
