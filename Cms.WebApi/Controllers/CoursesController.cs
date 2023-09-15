@@ -77,22 +77,37 @@ namespace CmsWebApi.Controllers
         //    }
         //}
 
-        // Return type - Approach 3 - ActionResult<T>
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<CourseDto>>> GetCoursesAsync()
-        //{
-        //    try
-        //    {
-        //        IEnumerable<Course> courses = await _cmsRepository.GetAllCoursesAsync();
-        //        //var result = MapCourseToCourseDto(courses);
-        //        var result = mapper.Map<CourseDto[]>(courses);
-        //        return result.ToList(); // Convert to support ActionResult<T>
-        //    }
-        //    catch (System.Exception ex)
-        //    {
-        //        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-        //    }
-        //}
+        //Return type - Approach 3 - ActionResult<T>
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<CourseDto>>> GetCoursesAsync()
+        {
+            try
+            {
+                IEnumerable<Course> courses = await _cmsRepository.GetAllCoursesAsync();
+                //var result = MapCourseToCourseDto(courses);
+                var result = mapper.Map<CourseDto[]>(courses);
+                return result.ToList(); // Convert to support ActionResult<T>
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult<CourseDto> AddCourse([FromBody] CourseDto course)
+        {
+            try
+            {
+                var newCourse = mapper.Map<Course>(course);
+                newCourse = _cmsRepository.AddCourse(newCourse);
+                return mapper.Map<CourseDto>(newCourse);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
 
 
         #region Custom mapper function

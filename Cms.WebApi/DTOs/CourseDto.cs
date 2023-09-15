@@ -1,4 +1,5 @@
 ﻿using Cms.WebApi.Cms.Data.Repository.Models;
+using System.Text.Json.Serialization;
 
 namespace Cms.WebApi.DTOs
 {
@@ -7,6 +8,7 @@ namespace Cms.WebApi.DTOs
         public int CourseId { get; set; }
         public string CourseName { get; set; }
         public int CourseDuration { get; set; }
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public COURSE_TYPE CourseType { get; set; }
         
     }
