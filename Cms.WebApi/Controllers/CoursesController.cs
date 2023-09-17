@@ -203,6 +203,33 @@ namespace CmsWebApi.Controllers
             }
         }
 
+        // POST ../courses/1/students
+        [HttpPost("{courseId}/students")]
+        public ActionResult<StudentDto> AddStudents(int courseId, StudentDto student)
+        {
+            try
+            {
+                if (!_cmsRepository.IsCourseExists(courseId))
+                {
+                    return NotFound();
+                }
+                Student newStudent = mapper.Map<Student>(student);
+
+                // Assign course
+                Course course = _cmsRepository.GetCourse(courseId);
+                newStudent.Course = course;
+
+                newStudent = _cmsRepository.AddStudent(newStudent);
+                var result = mapper.Map<StudentDto>(newStudent);
+
+                return StatusCode(StatusCodes.Status201Created, result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
         #region Custom mapper function
         // Custom mapper functions
 

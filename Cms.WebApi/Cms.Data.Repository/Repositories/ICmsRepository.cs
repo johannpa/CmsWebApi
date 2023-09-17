@@ -26,7 +26,7 @@ namespace Cms.WebApi.Cms.Data.Repository.Repositories
 
         IEnumerable<Student> GetStudents(int courseId);
 
-        //Student AddStudent(int courseId, Student student);
+        Student AddStudent(Student student);
 
     }
 }

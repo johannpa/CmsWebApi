@@ -118,5 +118,14 @@ namespace Cms.WebApi.Cms.Data.Repository.Repositories
         {
             return students.Where(s => s.Course.CourseId == courseId);
         }
+
+        public Student AddStudent(Student newStudent)
+        {
+            var maxStudentId = students.Max(s => s.StudentId);
+            newStudent.StudentId = maxStudentId + 1;
+            students.Add(newStudent);
+
+            return newStudent;
+        }
     }
 }
