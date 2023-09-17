@@ -13,5 +13,8 @@ namespace Cms.WebApi.Cms.Data.Repository.Repositories
 
         Course GetCourse(int courseId);
 
+        Course UpdateCourse(int courseId, Course newCourse);
+
+
     }
 }

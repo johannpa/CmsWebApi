@@ -134,6 +134,28 @@ namespace CmsWebApi.Controllers
             }
         }
 
+        [HttpPut("{courseId}")]
+        public ActionResult<CourseDto> UpdateCourse(int courseId, CourseDto course)
+        {
+            try
+            {
+                if (!_cmsRepository.IsCourseExists(courseId))
+                {
+                    return NotFound();
+                }
+
+                Course updatedCourse = mapper.Map<Course>(course);
+                updatedCourse = _cmsRepository.UpdateCourse(courseId, updatedCourse);
+                var result = mapper.Map<CourseDto>(updatedCourse);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
 
         #region Custom mapper function
         // Custom mapper functions
