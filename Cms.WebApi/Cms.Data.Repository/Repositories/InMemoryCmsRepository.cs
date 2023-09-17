@@ -42,6 +42,18 @@ namespace Cms.WebApi.Cms.Data.Repository.Repositories
             return newCourse;
         }
 
+        public bool IsCourseExists(int courseId)
+        {
+            return courses.Any(c => c.CourseId == courseId);
+        }
+
+        public Course GetCourse(int courseId)
+        {
+            var result = courses.Where(c => c.CourseId == courseId)
+                                .SingleOrDefault();
+            return result;
+        }
+
         public async Task<IEnumerable<Course>> GetAllCoursesAsync()
         {
             return await Task.Run(() => courses.ToList());
