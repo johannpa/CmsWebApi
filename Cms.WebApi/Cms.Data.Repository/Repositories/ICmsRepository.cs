@@ -15,6 +15,7 @@ namespace Cms.WebApi.Cms.Data.Repository.Repositories
 
         Course UpdateCourse(int courseId, Course newCourse);
 
+        Course DeleteCourse(int courseId);
 
     }
 }

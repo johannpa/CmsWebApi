@@ -156,6 +156,29 @@ namespace CmsWebApi.Controllers
             }
         }
 
+        [HttpDelete("{courseId}")]
+        public ActionResult<CourseDto> DeleteCourse(int courseId)
+        {
+            try
+            {
+                if (!_cmsRepository.IsCourseExists(courseId))
+                {
+                    return NotFound();
+                }
+
+                Course course = _cmsRepository.DeleteCourse(courseId);
+                if (course == null)
+                {
+                    return BadRequest();
+                }
+                var result = mapper.Map<CourseDto>(course);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
 
         #region Custom mapper function
         // Custom mapper functions
