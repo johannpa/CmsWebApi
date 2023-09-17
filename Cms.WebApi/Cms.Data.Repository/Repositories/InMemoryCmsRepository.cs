@@ -1,10 +1,14 @@
 ﻿using Cms.WebApi.Cms.Data.Repository.Models;
+using CmsWebApi.Cms.Data.Repository.Models;
 
 namespace Cms.WebApi.Cms.Data.Repository.Repositories
 {
     public class InMemoryCmsRepository : ICmsRepository
     {
         List<Course> courses = null;
+
+        List<Student> students = null;
+
         public InMemoryCmsRepository()
         {
             courses = new List<Course>();
@@ -24,6 +28,31 @@ namespace Cms.WebApi.Cms.Data.Repository.Repositories
                     CourseName = "Information Technology",
                     CourseDuration = 4,
                     CourseType = COURSE_TYPE.ENGINEERING
+                }
+            );
+
+            students = new List<Student>();
+            students.Add(
+                new Student()
+                {
+                    StudentId = 101,
+                    FirstName = "James",
+                    LastName = "Smith",
+                    PhoneNumber = "555-555-1234",
+                    Address = "US",
+                    Course = courses.Where(c => c.CourseId == 1).SingleOrDefault()
+                }
+            );
+
+            students.Add(
+                new Student()
+                {
+                    StudentId = 102,
+                    FirstName = "Robert",
+                    LastName = "Smith",
+                    PhoneNumber = "555-555-5678",
+                    Address = "US",
+                    Course = courses.Where(c => c.CourseId == 1).SingleOrDefault()
                 }
             );
         }
@@ -83,6 +112,11 @@ namespace Cms.WebApi.Cms.Data.Repository.Repositories
         public async Task<IEnumerable<Course>> GetAllCoursesAsync()
         {
             return await Task.Run(() => courses.ToList());
+        }
+
+        public IEnumerable<Student> GetStudents(int courseId)
+        {
+            return students.Where(s => s.Course.CourseId == courseId);
         }
     }
 }

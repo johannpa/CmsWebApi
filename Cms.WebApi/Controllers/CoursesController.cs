@@ -2,6 +2,8 @@
 using Cms.WebApi.Cms.Data.Repository.Models;
 using Cms.WebApi.Cms.Data.Repository.Repositories;
 using Cms.WebApi.DTOs;
+using CmsWebApi.Cms.Data.Repository.Models;
+using CmsWebApi.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -172,6 +174,27 @@ namespace CmsWebApi.Controllers
                     return BadRequest();
                 }
                 var result = mapper.Map<CourseDto>(course);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        // GET ../courses/1/students
+        [HttpGet("{courseId}/students")]
+        public ActionResult<IEnumerable<StudentDto>> GetStudents(int courseId)
+        {
+            try
+            {
+                if (!_cmsRepository.IsCourseExists(courseId))
+                {
+                    return NotFound();
+                }
+
+                IEnumerable<Student> students = _cmsRepository.GetStudents(courseId);
+                var result = mapper.Map<StudentDto[]>(students);
                 return result;
             }
             catch (Exception ex)
